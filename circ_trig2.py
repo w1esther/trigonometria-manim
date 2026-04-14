@@ -40,6 +40,8 @@ class CirculoTrigonometrico(MovingCameraScene):
 
         linha_cosseno = always_redraw(lambda: Line(ORIGIN, [ponto.get_x(), 0, 0], color=GREEN))
 
+        # linha_cosseno = always_redraw(lambda: Line([0, ponto.get_y(), 0], ponto.get_center(), color=GREEN))
+
         proj_y = always_redraw(lambda: Dot([0, ponto.get_y(), 0],color=RED))
 
         linha_seno = always_redraw(lambda: Line([ponto.get_x(), 0, 0] ,ponto.get_center(), color=RED))
@@ -51,6 +53,9 @@ class CirculoTrigonometrico(MovingCameraScene):
         angulo_texto = always_redraw(lambda: MathTex( f"\\theta = {angulo.get_value():.2f}" ).to_corner(UL).scale(0.5)) 
         
         caminho_seno = TracedPath( proj_y.get_center, stroke_color=RED, stroke_width=2 ) 
+        # caminho_cosseno = TracedPath(proj_x.get_center, stroke_color=GREEN, stroke_width=4)
+
+        linha_cosseno_topo = always_redraw(lambda: Line([0, ponto.get_y(), 0],ponto.get_center(),color=GREEN))
 
         linha_base = Line(ORIGIN, RIGHT, color=WHITE)
 
@@ -69,7 +74,7 @@ class CirculoTrigonometrico(MovingCameraScene):
 
         self.add(linha_base,angulo_visual, theta_simbolo)
 
-        self.add( ponto, raio, proj_x, proj_y, linha_cosseno, linha_seno, valor_seno, valor_cosseno, angulo_texto, caminho_seno )
+        self.add( ponto, raio, proj_x, proj_y, linha_cosseno, linha_seno, valor_seno, valor_cosseno, angulo_texto, caminho_seno, linha_cosseno_topo)
 
         self.play( angulo.animate.set_value(TAU - 0.001), run_time=10, rate_func=linear )
 
